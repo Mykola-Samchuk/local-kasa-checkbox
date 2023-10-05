@@ -1,6 +1,8 @@
 "use client";
+import "./buttonMethod.css";
+import axios from "axios";
 import { useState } from "react";
-export default function ButtonMethod({ name, port, method, onDataReceived }) {
+export default function ButtonMethod({ name, port, urlMethod, onDataReceived }) {
   const [status, setStatus] = useState({
     isLoaded: false,
     error: null,
@@ -8,23 +10,30 @@ export default function ButtonMethod({ name, port, method, onDataReceived }) {
   });
 
   const handlerTaxinfo = () => {
+    if(!port){
+      onDataReceived("Не вказаний або не вірний порт")
+    }
     setStatus({ isLoaded: true });
-    fetch(`http://127.0.0.1:${port}${method}`)
+    axios
+      .get(`http://127.0.0.1:${port}${urlMethod}`)
       .then((response) => {
-        return response.json();
+        // console.log(response.data)
+        return response.data;
       })
       .then((result) => {
         setStatus({ isLoaded: false, data: result });
-        onDataReceived(result)
+        // onDataReceived(result);
+        
+        onDataReceived(result, urlMethod); 
       })
       .catch((error) => {
         setStatus({ isLoaded: false, error: error });
-        // console.log(error.detail);
+        
       });
   };
   return (
     <>
-      <button onClick={handlerTaxinfo}>{name}</button>
+      <button className="btn" onClick={handlerTaxinfo}>{name}</button>
     </>
   );
 }

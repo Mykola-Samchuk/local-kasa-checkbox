@@ -110,6 +110,11 @@ a {
    v2.0 | 20110126
    License: none (public domain)
 */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 
 html,
 body,
@@ -217,6 +222,7 @@ section {
 
 body {
   line-height: 1;
+  box-sizing: border-box;
 }
 
 ol,
@@ -263,7 +269,7 @@ section {
   }
 }
 
-/* // Spacer */
+/* // Spacer  */
 .spacer-xxl {
   height: 150px;
 }
@@ -292,7 +298,7 @@ section {
   height: 15px;
 }
 
-/*media*/
+
 @media (max-width: 1399px) {
 
   .spacer-xxl,
@@ -336,4 +342,3 @@ section {
     height: 30px;
   }
 }
-

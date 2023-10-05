@@ -56,7 +56,7 @@ export default function Header() {
   };
   return (
     <>
-      <header className={`header-wrapp ${scrolled ? "scrolled" : ""}`}>
+      {/* <header className={`header-wrapp ${scrolled ? "scrolled" : ""}`}>
         <div className="header-inner">
           <nav className="nav-wrapp">
             <ul className={`nav-link-wrapp ${active ? "active" : ""}`}>
@@ -76,7 +76,7 @@ export default function Header() {
             <span></span>
           </div>
         </div>
-      </header>
+      </header> */}
     </>
   );
 }
