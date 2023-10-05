@@ -6,8 +6,8 @@ import ButtonMethod from "../ButtonMethod/ButtonMethod";
 
 export default function LocalKasa() {
   const [port, setPort] = useState("");
-  // const [receivedData, setReceivedData] = useState(null);
-  const [requestData, setRequestData] = useState({});
+  const [receivedData, setReceivedData] = useState("");
+  // const [requestData, setRequestData] = useState({});
 
   const taxes = "/api/v1/tax/taxes";
   const getShifts = "/api/v1/shifts";
@@ -16,22 +16,16 @@ export default function LocalKasa() {
     console.log(e.target.value);
     setPort(e.target.value);
   };
-  // const handleDataFromButtonMethod = (data) => {
-  //   // Обробка отриманих даних з ButtonMethod
-  //   setReceivedData(data); // Збереження отриманих даних у стейті
-  //   console.log("Дані з ButtonMethod:", data);
-  // };
-
   const handleDataFromButtonMethod = (data, urlMethod) => {
-    // Створіть новий об'єкт з оновленими даними
-    setRequestData((prevData) => ({
-      ...prevData,
-      [urlMethod]: data,
-    }));
 
-    console.log(`Дані з ${urlMethod}:`, data);
+    setReceivedData(() => ({
+          [urlMethod]: data,
+        }));
+    console.log("Дані з ButtonMethod:", data);
+    console.log(receivedData)
   };
-  // console.log(requestData)
+
+
 
   return (
     <>
@@ -74,9 +68,9 @@ export default function LocalKasa() {
           </div>
           <div className="info-wrapp">
             <h2 className="title">Information</h2>
-            <div>{requestData.getTaxes ? <div>Податок</div> : ""}</div>
-            <div>{requestData.getShifts ? <>getShifts</> : ""}</div>
-            <div>{requestData.getOfflineOnline ? <>getOfflineOnline</> : ""}</div>
+            <div>{receivedData.getTaxes ? <div>Податок</div> : ""}</div>
+            <div>{receivedData.getShifts ? <>getShifts</> : ""}</div>
+            <div>{receivedData.getOfflineOnline ? <>getOfflineOnline</> : ""}</div>
           </div>
         </div>
       </section>
