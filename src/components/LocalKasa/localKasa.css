@@ -1,51 +1,50 @@
 /* HOme Page */
-.param-wrapp {
-    padding: 20px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .method-wrapp, .info-wrapp{
-    width: 50%;
-    background-color: white;
-    border-radius: 6px;
-    padding: 20px;
-
-    box-shadow: 0px 0px 8px 0px #2f3b52;
-  }
-  .method-wrapp{
-    margin-right: 20px;
-  }
-  .title{
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px; 
-    font-weight: 700;
-    
-  }
-  .setting-wrapp{
-    width: 100%;
-    margin-bottom: 10px;
-  }
-/* .section-content{
-  margin-top: 70px;
+.port-setting {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
-  .param-wrapp{
-    display: flex;
-    justify-content: space-between;
-    margin: 0 20px;
-  }
-  .method-wrapp, .info-wrapp{
-    width: 50%;
-    background-color: white;
-    border-radius: 6px;
-    padding: 20px;
 
-    box-shadow: 0px 0px 8px 0px #2f3b52;
-  }
-  .method-wrapp{
-    margin-right: 20px;
-  }
-  .setting-wrapp{
-    width: 100%;
-  } */
+.setting-wrapp {
+  width: 60%;
+}
+
+.param-wrapp {
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.method-wrapp,
+.info-wrapp {
+  background-color: white;
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: 0px 0px 8px 0px #2f3b52;
+}
+
+.method-wrapp {
+  width: 40%;
+  margin-right: 20px;
+}
+.info-wrapp{
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+
+}
+
+.info-title{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.info-list-item{
+  margin-bottom: 6px;
+}
