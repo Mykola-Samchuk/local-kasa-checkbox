@@ -13,8 +13,10 @@ export default function LocalKasa() {
   const taxes = "/api/v1/tax/taxes";
   const getShifts = "/api/v1/shifts";
   const getofflineOnline = "/api/v1/kasa/status";
+  const openShift = "/api/v1/shift/open";
+  const closeShift = "/api/v1/shift/close";
 
-  // Обробляєм отримуєм дані для порта з інпута
+  // Oтримуєм дані для порта з інпута
   const handlerInputPort = (e) => {
     setPort(e.target.value);
   };
@@ -25,11 +27,12 @@ export default function LocalKasa() {
       [urlMethod]: data,
     }));
     setError(null);
-    console.log(requestDataMethod);
   };
-  const handlerErrorButtonMethod = (errorMessage) => {
-    setError(errorMessage);
-    console.log(errorMessage);
+  // const handlerErrorButtonMethod = (errorMessage) => {
+  //   setError(errorMessage);
+  // };
+  const handlerErrorButtonMethod = (error) => {
+    setError(error);
   };
 
   return (
@@ -43,7 +46,33 @@ export default function LocalKasa() {
         <div className="param-wrapp">
           <div className="method-wrapp">
             <h2 className="title">Method</h2>
-
+            <div className="open-close">
+              <ButtonMethod
+                name={
+                  requestDataMethod.openShift ||
+                  requestDataMethod.openShift === false
+                    ? "Зміна відкрита"
+                    : "Відкрити зміну"
+                }
+                port={port}
+                method={"post"}
+                urlMethod={openShift}
+                onDataReceived={(data) =>
+                  handlerDataFromButtonMethod(data, "openShift")
+                }
+                onError={handlerErrorButtonMethod}
+              />
+              <ButtonMethod
+                name={"Закрити зміну"}
+                port={port}
+                method={"post"}
+                urlMethod={closeShift}
+                onDataReceived={(data) =>
+                  handlerDataFromButtonMethod(data, "closeShift")
+                }
+                onError={handlerErrorButtonMethod}
+              />
+            </div>
             <div className="request-wrapp">
               <ButtonMethod
                 name={"Податкові ставки"}
@@ -81,6 +110,7 @@ export default function LocalKasa() {
             <h2 className="title">Information</h2>
             <div>
               {error ? (
+                // <ErrorRequest errorMessage={error} />
                 <ErrorRequest errorMessage={error} />
               ) : requestDataMethod.getTaxes &&
                 requestDataMethod.hasOwnProperty("getTaxes") &&
@@ -105,7 +135,6 @@ export default function LocalKasa() {
                 <div className="info-blc">
                   <div className="info-title">Поточна зміна:</div>
                   <ul className="info-list">
-                    {console.log(requestDataMethod.getShifts[0])}
                     <li className="info-list-item">
                       ID Зміни - {requestDataMethod.getShifts[0].external_id}
                     </li>
@@ -123,12 +152,50 @@ export default function LocalKasa() {
                     </li>
                   </ul>
                 </div>
+              ) : requestDataMethod.getOfflineOnline &&
+                requestDataMethod.hasOwnProperty("getOfflineOnline") ? (
+                <div className="info-blc">
+                  <div className="info-title">
+                    Cтатус каси Offline \ Online:
+                  </div>
+                  <ul className="info-list">
+                    <li className="info-list-item">
+                      Статус -{" "}
+                      {requestDataMethod.getOfflineOnline.online_status
+                        ? "Online"
+                        : "Offline"}
+                    </li>
+                    <li className="info-list-item">
+                      Oфлайн коди -{" "}
+                      {requestDataMethod.getOfflineOnline.offline_codes}
+                    </li>
+                    <li className="info-list-item">
+                      Годин в офлайні -{" "}
+                      {requestDataMethod.getOfflineOnline.hours_in_offline}
+                    </li>
+                    <li className="info-list-item"></li>
+                  </ul>
+                </div>
+              ) : requestDataMethod.openShift ? (
+                <div className="info-blc">
+                  <div className="info-title">Зміна відкрита</div>
+                </div>
+              ) : requestDataMethod.closeShift ? (
+                <div className="info-blc">
+                  <div className="info-title">Зміна закрита</div>
+                  <ul className="info-list">
+                    <li className="info-list-item">
+                      З-Звіт :{" "}
+                      <a
+                        target="_blank"
+                        href={`https://api.checkbox.ua/api/v1/reports/${requestDataMethod.closeShift.id}/text`}
+                      >{`https://api.checkbox.ua/api/v1/reports/${requestDataMethod.closeShift.id}/text`}</a>
+                    </li>
+                  </ul>
+                </div>
               ) : (
                 ""
               )}
-            </div>
-            <div>
-              {requestDataMethod.getOfflineOnline ? <>getOfflineOnline</> : ""}
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 .btn {
-    background-color: #2f3b52;
-    border: 1px solid #2f3b52;
-    border-radius: 5px;
+    /* background-color: #2f3b52; */
+    background-color: #8f257f;
+    border: 1px solid #8f257f;
+    border-radius: 16px;
     width: 100%;
     padding: 20px;
     color: #ffff;
@@ -13,7 +14,7 @@
 
 @media (min-width:1200px) {
     .btn:hover {
-        color: #2f3b52;
+        color: #8f257f;
         background-color: #ffff;
         
     }

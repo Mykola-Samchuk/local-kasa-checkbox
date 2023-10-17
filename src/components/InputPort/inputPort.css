@@ -1,8 +1,8 @@
 .inp-port{
     outline: none;
-    padding: 8px;
-    border-radius: 5px;
-    border: 2px solid #2f3b52;
-    font-size: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid #8f257f;
+    font-size: 20px;
     width: 100%
 }

@@ -8,7 +8,7 @@ export default function ButtonMethod({
   method,
   urlMethod,
   onDataReceived,
-  onError
+  onError,
 }) {
   const [status, setStatus] = useState({
     isLoaded: false,
@@ -19,22 +19,48 @@ export default function ButtonMethod({
   const handlerButtonMthod = () => {
     if (!port) {
       onError("Не вказаний або не вірний порт");
-      return
+      return;
     }
     setStatus({ isLoaded: true });
-    axios
-      .get(`http://127.0.0.1:${port}${urlMethod}`)
-      .then((response) => {
-        return response.data;
-      })
+
+    const axiosConfig = {
+      method: method, // Вкажіть HTTP-метод (GET або POST)
+      url: `http://127.0.0.1:${port}${urlMethod}`,
+    };
+    // дані для POST-запиту (якщо метод - "post")
+    if (method.toLowerCase() === "post") {
+      //  дані або об'єкт для відправлення разом з POST-запитом
+      const postData = {
+        // Добавити дані
+      };
+      axiosConfig.data = postData;
+    }
+    axios(axiosConfig)
+      .then((response) => response.data)
       .then((result) => {
         setStatus({ isLoaded: false, data: result });
+        console.log(result);
         onDataReceived(result, urlMethod);
       })
       .catch((error) => {
         setStatus({ isLoaded: false, error: error });
-        onError(error.message)
+        // console.log(error)
+        // onError(error.message);
+        onError(error.message);
       });
+    // axios
+    //   .get(`http://127.0.0.1:${port}${urlMethod}`)
+    //   .then((response) => {
+    //     return response.data;
+    //   })
+    //   .then((result) => {
+    //     setStatus({ isLoaded: false, data: result });
+    //     onDataReceived(result, urlMethod);
+    //   })
+    //   .catch((error) => {
+    //     setStatus({ isLoaded: false, error: error });
+    //     onError(error.message);
+    //   });
   };
   return (
     <>
