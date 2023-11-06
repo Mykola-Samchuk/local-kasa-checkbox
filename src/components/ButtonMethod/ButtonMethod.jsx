@@ -26,6 +26,10 @@ export default function ButtonMethod({
     const axiosConfig = {
       method: method, // Вкажіть HTTP-метод (GET або POST)
       url: `http://127.0.0.1:${port}${urlMethod}`,
+      headers: {
+        "X-Client-Name": "web-kasa-manager",
+        "X-Client-Version": "v1.01",
+      },
     };
     // дані для POST-запиту (якщо метод - "post")
     if (method.toLowerCase() === "post") {

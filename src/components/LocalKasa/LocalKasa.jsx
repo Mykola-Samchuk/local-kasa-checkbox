@@ -4,9 +4,11 @@ import { useState } from "react";
 import InputPort from "@/components/InputPort/InputPort";
 import ButtonMethod from "../ButtonMethod/ButtonMethod";
 import ErrorRequest from "../ErrorRequest/ErrorRequest";
+import InputService from "../InputSend/InputPort/InputService";
 
 export default function LocalKasa() {
   const [port, setPort] = useState("");
+  const [srevice, setService] = useState("")
   const [requestDataMethod, setRequestDataMethod] = useState("");
   const [error, setError] = useState(null);
 
@@ -15,6 +17,7 @@ export default function LocalKasa() {
   const getofflineOnline = "/api/v1/kasa/status";
   const openShift = "/api/v1/shift/open";
   const closeShift = "/api/v1/shift/close";
+  const serviceReceipt = "/api/v1/receipt/service";
 
   // Oтримуєм дані для порта з інпута
   const handlerInputPort = (e) => {
@@ -26,6 +29,7 @@ export default function LocalKasa() {
     setRequestDataMethod(() => ({
       [urlMethod]: data,
     }));
+    console.log(requestDataMethod);
     setError(null);
   };
   // const handlerErrorButtonMethod = (errorMessage) => {
@@ -45,7 +49,8 @@ export default function LocalKasa() {
         </div>
         <div className="param-wrapp">
           <div className="method-wrapp">
-            <h2 className="title">Method</h2>
+            <h2 className="title">Опції</h2>
+            {/* Методи відкриття \ закриття зміни */}
             <div className="open-close">
               <ButtonMethod
                 name={
@@ -107,8 +112,9 @@ export default function LocalKasa() {
             </div>
           </div>
           <div className="info-wrapp">
-            <h2 className="title">Information</h2>
+            <h2 className="title">Статус \ Інформація</h2>
             <div>
+              {/* Відображення інформації */}
               {error ? (
                 // <ErrorRequest errorMessage={error} />
                 <ErrorRequest errorMessage={error} />
@@ -197,6 +203,41 @@ export default function LocalKasa() {
                 ""
               )}
             </div>
+          </div>
+        </div>
+
+        <div className="param-wrapp">
+          <div className="method-wrapp">
+            <h2 className="title">Внесення \ Винесення готівки</h2>
+            <div className="request-wrapp">
+              <div className="service-method">
+                <ButtonMethod
+                  name={"Внесення Готівки"}
+                  port={port}
+                  method={"post"}
+                  urlMethod={serviceReceipt}
+                  onDataReceived={(data) =>
+                    handlerDataFromButtonMethod(data, "serviceReceipt")
+                  }
+                  onError={handlerErrorButtonMethod}
+                />
+                <InputService/>
+              </div>
+
+              <ButtonMethod
+                name={"Винесення Готівки"}
+                port={port}
+                method={"post"}
+                urlMethod={serviceReceipt}
+                onDataReceived={(data) =>
+                  handlerDataFromButtonMethod(data, "serviceReceipt")
+                }
+                onError={handlerErrorButtonMethod}
+              />
+            </div>
+          </div>
+          <div className="info-wrapp">
+            <h2 className="title">Статус</h2>
           </div>
         </div>
       </section>

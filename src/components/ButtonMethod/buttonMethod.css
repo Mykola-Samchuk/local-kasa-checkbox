@@ -6,7 +6,7 @@
     width: 100%;
     padding: 20px;
     color: #ffff;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     cursor: pointer;
     transition: 0.3s;
 
@@ -15,7 +15,23 @@
 @media (min-width:1200px) {
     .btn:hover {
         color: #8f257f;
-        background-color: #ffff;
+        background-color: #ffffff;
+    }
+}
+@media (max-width:1199px) {
+    .btn {
+        width: 100%;
+        padding: 16px 20px;
+        /* margin-bottom: 8px; */
         
+    
+    }
+}
+@media (max-width:991px) {
+    .btn {
+        width: 100%;
+        padding: 12px 16px;
+        /* margin-bottom: 6px; */
+        font-size: 12px;
     }
 }
